@@ -372,6 +372,27 @@ TLS handshake
 * The client computer sends a ``ClientHello`` message to the server with its
   Transport Layer Security (TLS) version, list of cipher algorithms and
   compression methods available.
+he TLS (Transport Layer Security) handshake is a critical process that occurs between the client (e.g., web browser) and the server to establish a secure communication channel. This handshake ensures confidentiality, integrity, and authenticity of the data exchanged between the client and server.
+
+ClientHello:
+The client sends a ClientHello message to the server, indicating the TLS version it supports, a list of cipher suites (encryption algorithms) it can use, and other parameters.
+ServerHello:
+Upon receiving the ClientHello, the server responds with a ServerHello message, selecting the highest TLS version supported by both parties and choosing a cipher suite from the client's list.
+Additionally, the server sends its digital certificate, which includes its public key and other relevant information.
+Certificate Verification:
+The client verifies the authenticity of the server's certificate. It checks if the certificate is signed by a trusted Certificate Authority (CA), whether it has not expired, and if it matches the domain name of the server.
+Key Exchange:
+The client generates a pre-master secret and encrypts it with the server's public key obtained from the certificate. This encrypted message is sent to the server.
+Upon receiving the encrypted pre-master secret, the server decrypts it using its private key and obtains the pre-master secret.
+Session Key Derivation:
+Both the client and server independently generate a session key from the pre-master secret and other parameters exchanged during the handshake.
+This session key will be used for symmetric encryption and decryption of data during the TLS session.
+Finished Messages:
+Both the client and server send Finished messages to each other, containing a hash of all previous handshake messages exchanged. This ensures that the handshake has not been tampered with.
+Secure Communication:
+With the handshake complete and both parties possessing the session key, they can now securely exchange data using symmetric encryption algorithms like AES (Advanced Encryption Standard).
+Session Resumption:
+In subsequent connections between the same client and server, TLS session resumption techniques can be employed to reduce handshake overhead by reusing previously established session parameters.
 
 * The server replies with a ``ServerHello`` message to the client with the
   TLS version, selected cipher, selected compression methods and the server's
